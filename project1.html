@@ -29,24 +29,221 @@
     <!-- Project Details -->
     <section class="py-5">
         <div class="container">
-            <h1 class="text-center">Project 1: [Project Name]</h1>
-            <p class="text-center text-muted">A detailed description of the project, its goals, technologies used, and challenges faced.</p>
+            <h1 class="text-center">Project 1: Slick Weather App</h1>
+            <p class="text-center text-muted">
+                The Slick Weather App, developed using Flutter and Dart, aimed to provide a seamless and user-friendly experience for displaying current 
+                weather conditions and a 5-day forecast. The project involved integrating live weather APIs, utilizing device location data, and 
+                implementing animations to create a visually engaging application. The app's goals included accurate location-based weather 
+                retrieval, efficient API handling, and a clean, intuitive interface that highlights essential information without overwhelming the 
+                user.
+            </p>
+            <p class="text-center text-muted">
+                The development process was structured into three key components: service and API calls, the current weather display, and 
+                the 5-day forecast display. This modular design approach facilitated a deeper understanding of each component's requirements, 
+                ensuring clarity and reducing potential confusion during implementation.
+            </p>
+            <p class="text-center text-muted">
+                Challenges included managing user permissions for accessing location data, organizing API responses for optimal display, and 
+                incorporating animations to enhance the app's visual appeal. These obstacles provided valuable lessons, such as the importance of 
+                concise data presentation for mobile devices and the effective use of design elements to improve user experience.
+            </p>
+            <p class="text-center text-muted">
+                Overall, the project successfully met its objectives and serves as a strong foundation for further enhancements, demonstrating 
+                the versatility of Flutter and Dart in mobile application development.
+            </p>
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <img src="assets/images/project1.jpg" class="img-fluid" alt="[Project Name]">
+                    <img src="assets/WeatherAppSS.png" class="img-fluid" alt="Slick Weather App">
                 </div>
                 <div class="col-md-6">
                     <h3>Key Features</h3>
                     <ul>
-                        <li>Feature 1: [Description]</li>
-                        <li>Feature 2: [Description]</li>
-                        <li>Feature 3: [Description]</li>
+                        <li>Feature 1: Fetch Users Current Location, Latitude And Longitude</li>
+                        <li>Feature 2: Call A Weather API Using Current Location</li>
+                        <li>Feature 3: Call A City API Using Latitude And Longitude</li>
+                        <li>Feature 4: Determine Date & Weather Animation To Display</li>
+                        <li>Feature 5: Display Current & 5 Day Forecast On The Screen Including Animation</li>
                     </ul>
                     <h3>Technologies Used</h3>
-                    <p>HTML, CSS, JavaScript, Bootstrap, etc.</p>
-                    <a href="#" class="btn btn-primary mt-3">Visit Project</a>
+                    <p>Dart, Flutter.</p>
+                    <a href="ttps://github.com/Jakobolive/WeatherApp" class="btn btn-primary mt-3">Visit Project</a>
                 </div>
+            </div>     
+            </br>       
+            <h3 class="text-center">Short App Walkthrough</h3>
+            </br>
+            <div class="d-flex justify-content-center">
+                <video class="" width="640" height="360" controls>
+                    <source src="assets/WeatherAppDemo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> 
             </div>
+            </br>
+            <h3 class="text-center">Honest Reflection</h3>
+            <p class="text-center text-muted">
+                This project served as a great conclusion to the mobile development course, presenting both design challenges and practical 
+                experience with real API integrations. Unlike the mock API files used earlier in the course, working with live APIs for weather 
+                and city data highlighted the challenges of real-world API calls apart from JSON file reads. The development process was smooth 
+                and structured, with the application design segmented into three main components: service and API calls, the current weather 
+                display, and the 5-day forecast display. This division within the app design produced a deeper understanding of each component’s 
+                requirements and streamlined the development process by minimizing potential confusion and analysis errors.
+            </p>
+            <p class="text-center text-muted">
+                The finished application meets its intended goals effectively, offering a simple yet functional user experience. Key features 
+                include user location detection, which prompts for location permissions and uses the device’s latitude and longitude to determine 
+                the user’s location and retrieve localized weather data. It also provides a 5-day forecast with corresponding weather animations 
+                that enhance the user experience. The forecast data is compiled into an engaging, user-friendly menu interface, demonstrating 
+                mindful design considerations. While the application is straightforward, its design allows for future enhancements such as 
+                location searches, making it an excellent foundation for more advanced functionality.
+            </p>
+            <p class="text-center text-muted">
+                Throughout the project, I learned several valuable lessons. Understanding how to request and handle user permissions was crucial 
+                for accessing secured device data like location information. Adding animations demonstrated how even simple design elements can 
+                significantly enhance the appearance and interactivity of an application. Additionally, I learned the importance of filtering 
+                information from API responses within the data model to avoid overloading users with unnecessary data, ensuring that the display 
+                remains clean and user-friendly.
+            </p>
+            <p class="text-center text-muted">
+                This project did a great job at demonstrating my ability to work with live APIs, design intuitive and somewhat visually appealing 
+                and navigable interfaces, and adhere to project requirements to deliver a polished application. It also reinforced the importance 
+                of thoughtful app design and its impact on user experience. Overall, the Slick Weather App project served as an excellent 
+                introduction to integrating real APIs into app development and showcased the value of clear and understandable design, paired with 
+                efficient data presentation in functional, user-centered applications.
+            </p>   
+            </br>
+            <h3 class="text-center">Functional Code Walkthrough</h3>
+            <pre>
+                <code>
+                    /// Fetch weather data using latitude and longitude.
+                    Future<WeatherResponse> getWeather(double lat, double lon) async {
+                      try {
+                        final uri = Uri.parse(
+                            '$BASE_URL?lat=$lat&lon=$lon&exclude=hourly,minutely&units=metric&appid=$API_KEY');
+                        final response = await http.get(uri);
+                  
+                        // Checking the response.
+                        if (response.statusCode == 200) {
+                          return WeatherResponse.fromJson(jsonDecode(response.body));
+                        } else {
+                          print('Error fetching weather data: ${response.body}');
+                          throw Exception('Failed to load weather data');
+                        }
+                      } catch (e) {
+                        print('Error in getWeather: $e');
+                        throw Exception('Error while fetching weather: $e');
+                      }
+                    }
+                </code>
+            </pre>
+            <p class="text-center text-muted">
+                Functionality to retrieve the API data using the latitude and longitude of the users location. After the response
+                is returned, it is checked for a 200 status code, meaning success. if the status code is not 200, it prints the error, otherwise it is returned 
+                and decoded from JSON.
+            </p>
+            </br>
+            <pre>
+                <code>
+                    /// Fetch the user's current location and use it to fetch weather data.
+                    Future<WeatherResponse> getWeatherForCurrentLocation() async {
+                        try {
+                        Position position = await _getCurrentPosition();
+                        return getWeather(position.latitude, position.longitude);
+                        } catch (e) {
+                        print('Error in getWeatherForCurrentLocation: $e');
+                        rethrow;
+                        }
+                    }
+                </code>
+            </pre>
+            <p class="text-center text-muted">
+                Functionality to call the getWeatherForCurrentLocation function to return a latitude and longitude values from the API response. 
+                The function will then check the validity of the values and ether return them, or return an error.
+            </p>
+            </br>
+            <pre>
+                <code>
+                    /// Fetch the current location and detect the city name.
+                    Future<String> getCurrentCity() async {
+                        try {
+                        // Get the current position
+                        Position position = await _getCurrentPosition();
+                        // Log position for debugging
+                        print(
+                            'Current position: lat=${position.latitude}, lon=${position.longitude}');
+
+                        // Fetch the city from the coordinates
+                        return await getCityFromCoordinates(
+                            position.latitude, position.longitude);
+                        } catch (e) {
+                        print('Error in getCurrentCity: $e');
+                        return "Error fetching city: $e";
+                        }
+                    }
+                </code>
+            </pre>
+            <p class="text-center text-muted">
+                Functionality to check for latitude and longitude positions, if they exist, the command line will display the location values 
+                and the will call a function to get the city using the position variables. If the position variables do not exist, the function will 
+                return an error. 
+            </p>
+            </br>
+            <pre>
+                <code>
+                    /// Detect city name from latitude and longitude from another API.
+                    Future<String> getCityFromCoordinates(double lat, double lon) async {
+                      try {
+                        final uri = Uri.parse(
+                            'https://nominatim.openstreetmap.org/reverse?lat=$lat&lon=$lon&format=json');
+                        final response = await http.get(uri);
+                  
+                        if (response.statusCode == 200) {
+                          final data = jsonDecode(response.body);
+                          return data['address']['city'] ?? "Unknown City";
+                        } else {
+                          return "Error fetching city";
+                        }
+                      } catch (e) {
+                        print('Error in getCityFromCoordinates: $e');
+                        return "Error fetching city";
+                      }
+                    }  
+                </code>
+            </pre>
+            <p class="text-center text-muted">
+                Functionality that will try to call a city API that will try to return a city name when provided with valid latitude and longitude positions. 
+                After waiting for the response, it is checked for a status code of 200, meaning success, and if so, the city name is extracted from the response 
+                body. If the status code is not 200, it will return an error message. This is contained in a try -catch block to handle larger potential errors.
+            </p>
+            </br>
+            <pre>
+                <code>
+                    /// Helper method to get the user's current position.
+                    Future<Position> _getCurrentPosition() async {
+                        try {
+                        // Ensure location permissions are granted.
+                        LocationPermission permission = await Geolocator.checkPermission();
+                        if (permission == LocationPermission.denied) {
+                            permission = await Geolocator.requestPermission();
+                        }
+                        if (permission == LocationPermission.deniedForever) {
+                            throw Exception('Location permissions are permanently denied.');
+                        }
+
+                        // Get the user's current position.
+                        return await Geolocator.getCurrentPosition();
+                        } catch (e) {
+                        print('Error in _getCurrentPosition: $e');
+                        throw Exception('Error fetching current location: $e');
+                        }
+                    }
+                </code>
+            </pre>   
+            <p class="text-center text-muted">
+                Functionality that will try to call the Geolocator package to get the user's current position, the function will first prompt the user 
+                for permission to access its location data. Upon approval, the function will use the Geolocator to pull the latitude and longitude of the 
+                users device from its location data and return the values. If the user denies the permission, it will throw a corresponding error message 
+                as well as fail the try - catch block.
+            </p>         
         </div>
     </section>
 
