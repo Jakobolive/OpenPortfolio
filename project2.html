@@ -29,27 +29,325 @@
     <!-- Project Details -->
     <section class="py-5">
         <div class="container">
-            <h1 class="text-center">Project 2: [Project Name]</h1>
-            <p class="text-center text-muted">A detailed description of the project, its goals, technologies used, and challenges faced.</p>
+            <h1 class="text-center">Project 2: Hearts</h1>
+            <p class="text-center text-muted">
+                This virtual Hearts game was a Windows Form developed using C# on Visual Studio. This project aimed to mimic a common card game, 
+                and Hearts happened to be our choice. This project involved creating a relatively basic AI player to compete with the user, this 
+                AI player also features some basic decision-making based on current conditions. On top of the AI feature, this app also displays 
+                several user decisions that can shape how the game functions, from players to total points, and theme. This project also features 
+                logic for data validation, before the user is allowed to make decisions, such as only displaying valid cards considering the 
+                current suit. 
+            </p>
+            <p class="text-center text-muted">
+                The development process was broken between 4 team members, although our original plans quickly fell apart due to a lack of 
+                meaningful contributions. The development quickly turned into a one-man show to tackle each section from AI to UI Design, 
+                and game logic. Some other challenges faced with this project included creating our AI, as we have never dealt with even the 
+                most basic AI throughout our program. It was a challenge to determine what exactly we needed to allow an AI to complete the 
+                tasks needed, and possibly even win against the player.
+            </p>
+            <p class="text-center text-muted">
+                This project provided me with plenty of meaningful lessons as well as further practical experience with C#. Some of the lessons
+                 were based on basic AI concepts, validating user’s options instead of data, and experimenting with dynamic web form controls to 
+                 represent cards. Overall, although not as visually appealing as expected, I developed a fully functioning Hearts game using C# 
+                 and the .NET Framework.
+            </p>
             <div class="row mt-4">
                 <div class="col-md-6">
-                    <img src="assets/images/project1.jpg" class="img-fluid" alt="[Project Name]">
+                    <img src="assets/HeartsAppSS.png" class="img-fluid" alt="Hearts">
                 </div>
                 <div class="col-md-6">
                     <h3>Key Features</h3>
                     <ul>
-                        <li>Feature 1: [Description]</li>
-                        <li>Feature 2: [Description]</li>
-                        <li>Feature 3: [Description]</li>
+                        <li>Feature 1: Basic AI With Decision Making Logic Based On Cards Dealt To AI</li>
+                        <li>Feature 2: "Random" Objects To Aid In Card Dealing</li>
+                        <li>Feature 3: Initial Setup Screen To Allow User To Select Number Of Players, Points, And Name</li>
+                        <li>Feature 4: Logic To Determine Winner Of Hand And Game</li>
+                        <li>Feature 5: Side Buttons To Start, Restart, Read Rules, And Exit Game</li>
                     </ul>
                     <h3>Technologies Used</h3>
-                    <p>HTML, CSS, JavaScript, Bootstrap, etc.</p>
-                    <a href="#" class="btn btn-primary mt-3">Visit Project</a>
+                    <p>C#, Windows Forms</p>
+                    <a href="https://github.com/JakobOlive/OOP2200-Group-Project-Hearts" class="btn btn-primary mt-3">Visit Project</a>
                 </div>
             </div>
+            </br>
+            <h3 class="text-center">Short App Walkthrough</h3>
+            </br>
+            <div class="d-flex justify-content-center">
+                <video class="" width="640" height="360" controls>
+                    <source src="assets/HeartsAppDemo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video> 
+            </div>
         </div>
+    </br>
+    <h3 class="text-center">Honest Reflection</h3>
+    <p class="text-center text-muted">
+        The process of working on this project couldn’t be considered smooth-flowing, there was a lot of backtracking and roadblocks, from internal and 
+        external sources. Internal factors such as a lack of group contributions, research errors and misunderstandings, and especially bugs and code 
+        deprecation. A key that worked well for the completion of the project was to keep a physical drawing of the classes and their interactions. 
+        This draw-up greatly helped with class creation and ensured each class was able to do what we required of it, although this document 
+        constantly changed. Another aspect that worked to progress development was the use of Visual Studios IntelliSense feature, which sometimes 
+        knew what was going on before I did. This sped up coding and helped weed out syntax and spelling mistakes within the program, allowing me to 
+        focus on other things.
+    </p>
+    <p class="text-center text-muted">
+        Overall, the product works as intended, although it doesn’t appear as seamless as an actual virtual card game on your PC feels. There are no 
+        animations, no images on the cards other than the suit and the value, and there are no sound effects. On the other hand, these were not 
+        requirements of the assignment and were also not affecting the functionality of the game in any way, aside from being a little boring. The 
+        game works well, the only thing that doesn’t work well would be the “attention-grabbing” features like the “exciting” themes and anything 
+        else to grab the player's attention.
+    </p>
+    <p class="text-center text-muted">
+        This project gave me many lessons, such as the basics of implementing basic AI and giving it somewhat of a brain to make decisions. This 
+        task included a lot of research and experimentation to make sure the AI was doing what we needed. Aside from learning how to do it, 
+        implementing it was another story. I first learned that my original classes were too vague, and I needed to break them down into an 
+        AIPlayer.cs and a HumanPlayer.cs class that inherits a basic Player.cs class. Another lesson was getting around data validation, although 
+        the app includes data validation, it is done before the user's selection. This was accomplished by only showing the user cards that they 
+        can play, with the corresponding trick, and deactivating cards not applicable. We have done data validation many times before, but this 
+        was the first time doing it before the user inputs and actual data. 
+    </p>
+    <p class="text-center text-muted">
+        Lastly, this project demonstrates an expanding knowledge and understanding of AI and requirements gathering. Arguably, gathering 
+        requirements is the first and most important part of the development process. On top of that, the application shows my ability to solve 
+        problems, as development went along, many issues were found. Aside from soft skills, this project also provided me with some C# 
+        experience, as well as Visual Studio experience, and version control via GitHub. Overall, this was a great project to learn countless 
+        lessons from teamwork to technical things like a crash course on GitHub.
+    </p>   
+    </br>
+    <h3 class="text-center">Functional Code Walkthrough</h3>
+    <pre>
+        <code>
+            private void DisplayHand(HumanPlayer humanPlayer)
+            {
+                // Execute this method on the UI thread.
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() => DisplayHand(humanPlayer)));
+                    return;
+                }
+                // Sort the player's hand by suit and then by value to be more like an actual card game.
+                var sortedHand = humanPlayer.PlayerHand.OrderBy(card => card.Suit).ThenBy(card => card.Value);
+                // A foreach loop that dynamically builds the card buttons as per the players hand.
+                foreach (Card card in sortedHand)
+                {
+                    // Creating, adding text to, sizing, naming, attaching functionality, styling, and placing the button.
+                    Button button = new Button();
+                    button.Text = card.ToString();
+                    button.Size = new Size(75, 125); 
+                    button.Name = card.NameButton();
+                    button.Click += (sender, e) => SelectCard(button);
+                    button.Enabled = false;
+                    // Apply styles based on selected theme
+                    switch (theme)
+                    {
+                        case "Light":
+                            // Apply light theme.
+                            button.BackColor = Color.FromArgb(245, 245, 245);
+                            button.ForeColor = Color.Black;
+                            break;
+                        case "Dark":
+                            // Apply dark theme.
+                            button.BackColor = Color.FromArgb(40, 40, 40); // Charcoal
+                            button.ForeColor = Color.FromArgb(245, 245, 245);
+                            break;
+                        case "Card":
+                            // Apply card theme.
+                            button.BackColor = Color.FromArgb(245, 245, 245); // Off white
+                            button.ForeColor = Color.Black;
+                            break;
+                        case "GUI":
+                            // Apply GUI theme.
+                            button.BackColor = Color.FromArgb(128, 128, 128);
+                            button.ForeColor = Color.Black;
+                            break;
+                    }
+                    HandFlowLayoutPanel.Controls.Add(button);
+                    // Adding the new button to the list of buttons for easy access and manipulation.
+                    CardButtons.Add(button);
+                }
+            }
+        </code>
+    </pre>
+    <p class="text-center text-muted">
+        This function is used to display the player's hand in the game window. It takes the player's hand as an input, sorts it by suit and value, 
+        and then creates a button for each card in the hand. The buttons colors are dependant on the players selected theme. The buttons are automatically
+        disabled to prevent the player from selecting a card that is not technically in play yet. The cards are activated upon the player's turn and the 
+        games internal logic.
+    </p>
+    </br>
+    <pre>
+        <code>
+            private void DealCards()
+                {
+                    foreach (Player player in players)
+                    {
+                        // If the player wishes to only play against 1 AI Player.
+                        if (twoPlayerMode == true)
+                        {
+                            for (int I = 0; I < 26; I++)
+                            {
+                                player.AddCard(gameDeck.Deal());
+                            }
+                        }
+                        // Otherwise, the player wishes to play against 3 AI Players and it is a normal game.
+                        else
+                        {
+                            for (int I = 0; I < 13; I++)
+                            {
+                                player.AddCard(gameDeck.Deal());
+                            }
+                        }
+                        
+                    }
+                }
+        </code>
+    </pre>
+    <p class="text-center text-muted">
+        This functionality will create the deck of cards for each player, considering that the game deck is already shuffled, 
+        that step is skipped within this function. The number of cards each player receives is dependant on the number of players 
+        which the user chooses. The function than goes through the game deck collection and adds one card to the player's hand for 
+        each card, until the game deck is empty.
+    </p>
+    </br>
+    <pre>
+        <code>
+            public Card PlayCard(Control control, List <-Button> cardButtons, List<Card> currentTrick, bool heartsBroken)
+                {
+                    // Local variables that will be used for validation.
+                    var nonHeartCards = playerHand.Where(card => card.Suit != "Hearts").ToList();
+                    // If this is the first play of the round, player can lead with any card.
+                    if (currentTrick.Count == 0)
+                    {
+                        // Maybe this is the first trick of the round, lets check for the 2 of Clubs.
+                        Card twoOfClubs = playerHand.Find(card => card.Value == 2 && card.Suit == "Clubs");
+                        // If the two of clubs is found, we must force the player to play it.
+                        if (twoOfClubs != null)
+                        {
+                            EnableCards(control, cardButtons, ForceTwoOfClubs(playerHand));
+                            return cardInPlay;
+                        }
+                        // If, the game trick is starting, but hearts are not broken.
+                        else if (!heartsBroken || nonHeartCards.Count > 0)
+                        {
+                            // Setting, validating, and waiting for selection when the player cannot play hearts.
+                            EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
+                            return cardInPlay;
+                        }
+                        // Else, it is further along in the game and it is in free for all.
+                        else
+                        {
+                            heartsBroken = true;
+                            // Setting, validating, and waiting of selection when the player can play any card.
+                            EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
+                            return cardInPlay;
+                        }
+                    }
+                    else
+                    {
+                        // Otherwise, play a card following the suit, if possible.
+                        string leadingSuit = currentTrick[0].Suit;
+                        List <Card> matchingSuits = playerHand.Where(card => card.Suit == leadingSuit).ToList();
+                        // If no cards of the leading suit are available, play a random card.
+                        if (matchingSuits.Count == 0)
+                        {
+                            // If, hearts have not been broken and there is atleast 1 card that is not a heart.
+                            if (!heartsBroken || nonHeartCards.Count > 0)
+                            {
+                                // Setting, validating, and waiting for selection when the player cannot play hearts.
+                                EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
+                                return cardInPlay;
+                            }
+                            // Else, hearts and valid or can be broken.
+                            else
+                            {
+                                // Setting, validating, and waiting for selection when the player can play any card.
+                                EnableCards(control, cardButtons, ValidateCards(playerHand, heartsBroken));
+                                return cardInPlay;
+                            }
+                        }
+                        // Else, the player can play according to the leading suit.
+                        else
+                        {
+                            // Setting, validating, and waiting for selection when the player has cards of the same suit.
+                            EnableCards(control, cardButtons, ValidateCards(playerHand, leadingSuit)); 
+                            return cardInPlay; 
+                        }
+                    }
+                }
+        </code>
+    </pre>
+    <p class="text-center text-muted">
+        The code above is the functionality that will activate the users hand, based on the current state of the game. 
+        It uses several conditions to determine if it is the first trick of the game, if the player has the 2 of clubs, the 
+        current state of the hearts, and suit of the current trick. The function will activate any cards that pass the conditions, 
+        with priority to not break hearts and take on further points. Then the player will be able to make their play selection.
+    </p>
+    </br>
+    <pre>
+        <code>
+            private Card RandomCard(List<Card> currentTrick, bool heartsBroken)
+                {
+                    // Sort playable cards based on a scoring system.
+                    var sortedCards = playerHand.OrderByDescending(card => CardScore(card, currentTrick)).ToList();
+                    // Choose the highest scoring card, considering risk.
+                    return ChooseCardConsideringRisk(sortedCards, currentTrick, heartsBroken);
+                }
+                
+            private Card RandomCardWOHearts(List<Card> nonHeartCards, List<Card> currentTrick, bool heartsBroken)
+                {
+                    // Sort playable cards based on a scoring system.
+                    var sortedCards = nonHeartCards.OrderByDescending(card => CardScore(card, currentTrick)).ToList();
+                    // Choose the highest scoring card, considering risk.
+                    return ChooseCardConsideringRisk(sortedCards, currentTrick, heartsBroken);
+                }
+                
+            private Card ChooseCardConsideringRisk(List<Card> sortedPlayableCards, List<Card> currentTrick, bool heartsBroken)
+                {
+                    // Check if leading with certain cards poses a risk.
+                    foreach (Card card in sortedPlayableCards)
+                    {
+                        // Check if leading with a heart card is risky.
+                        if (card.Suit == "Hearts")
+                        {
+                            // If hearts have not been broken and leading with a heart card would cause hearts to break, avoid it.
+                            if (!heartsBroken && WillLeadToHeartsBreak(card, currentTrick))
+                            {
+                                continue; // Skip this card and proceed to the next one.
+                            }
+                        }
+                        // If no risk is identified, play the card.
+                        return card;
+                    }
+                    // If all playable cards pose a risk, play the lowest scoring card (least risky).
+                    return sortedPlayableCards.Last();
+                }
+                
+            
+            private bool WillLeadToHeartsBreak(Card heartCard, List<Card> currentTrick)
+                {
+                    // Determine if the heart card will be the highest card in the trick.
+                    foreach (Card card in currentTrick)
+                    {
+                        if (card.Suit == "Hearts" && card.Value > heartCard.Value)
+                        {
+                            return true; // Leading with the heart card will cause hearts to break.
+                        }
+                    }
+                    return false; // Leading with the heart card will not cause hearts to break.
+                }
+        </code>
+    </pre>
+    <p class="text-center text-muted">
+        This is a few functions used for the AI logic, from selecting a random card, to risk assessment. 
+        Given current data about the trick, there is a function to sort the cards and the select a 
+        card based on the possible risks. The risk assessment is based on the card's suit and the current 
+        trick. The AI will try to avoid playing a heart card if it will cause the hearts to break. 
+        The same for the trump card, if the AI has it, they will try not to play it, when they are likely 
+        to win. This is done by a function that assess the points value of each card in the hand, 
+        although this function is not shown. The end result from these functions will be a card that 
+        posses the least risk to the AI player.
+    </p>
     </section>
-
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2025 Jakob Olive. All rights reserved.</p>
